@@ -227,6 +227,37 @@ app.get("/userBooks/:userID", async (req, res) => {
     }
 });
 
+//get a single user's book
+app.get("/userActivity/status/:userID/:bookID", async (req, res) => {
+    const {userID, bookID} = req.params;
+
+    if(!userID || !bookID)
+        return res.send("Missing Required IDs.");
+
+    try{
+        const collection = db.collection("UserBooks");
+        const filter = {
+            uID: new ObjectId(userID),
+            bID: new ObjectId(bookID)
+        }
+
+        const response = await collection.findOne(filter);
+
+        if(response)
+        {
+            return res.json({
+                isRead: response.isRead
+            })
+        } else {
+            return res.json({
+                isRead: false,
+            });
+        }
+    } catch (e) {
+        console.error("Single Status Error:", e);
+    }
+});
+
 //get book data for update
 app.get("/book/:id", async (req, res) => {
     try {

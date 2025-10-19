@@ -21,7 +21,6 @@ export function ShowCat()
         const id = localStorage.getItem('_id');
         if(id)
             setUserID(id);
-        
 
         const fetchData = async () => {
             try

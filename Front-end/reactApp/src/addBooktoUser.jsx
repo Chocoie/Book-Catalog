@@ -4,15 +4,34 @@ import { useNavigate } from 'react-router-dom';
 export function AddBooktoUser ({bookIDFromCat, userIDFromAcc})
 {
     const[isRead, setIsRead] = useState(false);
+    const[initialIsRead, setInitialIsRead] = useState(false);
     const[rating, setRating] = useState("");
     const[message, setMessage] = useState("");
+
+    useEffect(()=> {
+        if(!bookIDFromCat || !userIDFromAcc) return;
+
+         const fetchIsRead = async () => {
+            try{
+                let response = await fetch(`http://localhost:8080/userActivity/status/${userIDFromAcc}/${bookIDFromCat}`);
+
+                if(response.ok)
+                {
+                    let theJson = await response.json();
+                    setInitialIsRead(theJson.isRead || false);
+                }
+            }
+            catch (error) {console.log(error)};
+        }
+        fetchIsRead();
+    }, [bookIDFromCat, userIDFromAcc]);
 
     const handleReadChange = (e) => {
         const isChecked = e.target.checked;
         setIsRead(isChecked);
 
         if(!isChecked)
-            setIsRead(false);
+            setRating("");
     };
 
     const handleRatingChange = (e) => {
@@ -53,25 +72,29 @@ export function AddBooktoUser ({bookIDFromCat, userIDFromAcc})
     return(
         <>
             <form onSubmit={addBookForUser}>
-                <input type="checkbox" id={`readMark-${bookIDFromCat}`} checked={isRead} onChange={handleReadChange}/>
-                <label htmlFor={`readMark-${bookIDFromCat}`}>Read</label>
-                <br/>
-                {isRead && (
+                {!initialIsRead ? (
                     <>
-                        <label htmlFor={`rating-${bookIDFromCat}`}>Rating</label>
-                        <select id={`rating-${bookIDFromCat}`} value={rating} onChange={handleRatingChange} required>
-                            <option value="" disabled>Rate</option>
-                            <option value="1">1 Star</option>
-                            <option value="2">2 Stars</option>
-                            <option value="3">3 Stars</option>
-                            <option value="4">4 Stars</option>
-                            <option value="5">5 Stars</option>
-                        </select>
+                        <input type="checkbox" id={`readMark-${bookIDFromCat}`} checked={isRead} onChange={handleReadChange}/>
+                        <label htmlFor={`readMark-${bookIDFromCat}`}>Read</label>
+                        <br/>
+                        {isRead && (
+                            <>
+                                <label htmlFor={`rating-${bookIDFromCat}`}>Rating</label>
+                                <select id={`rating-${bookIDFromCat}`} value={rating} onChange={handleRatingChange} required>
+                                    <option value="" disabled>Rate</option>
+                                    <option value="1">1 Star</option>
+                                    <option value="2">2 Stars</option>
+                                    <option value="3">3 Stars</option>
+                                    <option value="4">4 Stars</option>
+                                    <option value="5">5 Stars</option>
+                                </select>
 
-                        <button type="submit">Save</button>
-                        {message && <p>{message}</p>}
-                    </>
-                )}
+                                <button type="submit">Save</button>
+                                {message && <p>{message}</p>}
+                            </>
+                        )}
+                    </>) : (<><p>Already Read</p></>)
+                }
             </form>
         </>
     )
