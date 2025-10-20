@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './CSS/LoginPage.css'
 
 export function LoginPage()
 {
@@ -55,24 +56,27 @@ export function LoginPage()
 
     return(
         <>
-            <div>
-                <h2>Welcome back!</h2>
+            <main class="loginMain">
+                <h2 class="welcomeBackh2">Welcome Back!</h2>
+                <br/>
                 {/* Error message */}
                 {errMessage && (
-                <p>Error: {errMessage}</p>
+                <p id="loginError">Error: {errMessage}</p>
                 )}
 
-                <form onSubmit={handleSubmit}>
-                    <input onChange={handleUsernameChange} type="text" id="username" placeholder="Username"/>
+                <form class="loginForm" onSubmit={handleSubmit}>
+                    <input id="loginUName" onChange={handleUsernameChange} type="text" placeholder="Username"/>
                     <br/>
                     <br/>
-                    <input onChange={handlePasswordChange} type="password" id="password" placeholder="Password"/>
+                    <input id="loginPass" onChange={handlePasswordChange} type="password" placeholder="Password"/>
                     <br/>
                     <br/>
-                    <button type="submit">Log In</button>
-                    <button onClick={() => navigate('/newUser')} type="button">Register new account</button>
+                    <div class="loginButtons">
+                        <button id="registerNew"onClick={() => navigate('/newUser')} type="button">Sign Up</button>
+                        <button id="loginSubmit" type="submit">Log In</button>
+                    </div>
                 </form>
-            </div>            
+            </main>            
         </>
     )
 }
