@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
+import './CSS/AddBooktoUser.css'
 
 export function AddBooktoUser ({bookIDFromCat, userIDFromAcc})
 {
@@ -71,7 +72,7 @@ export function AddBooktoUser ({bookIDFromCat, userIDFromAcc})
 
     return(
         <>
-            <form onSubmit={addBookForUser}>
+            <form class="addBookToUser" onSubmit={addBookForUser}>
                 {!initialIsRead ? (
                     <>
                         <input type="checkbox" id={`readMark-${bookIDFromCat}`} checked={isRead} onChange={handleReadChange}/>

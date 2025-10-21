@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { NavigationPage } from './NavigationPage.jsx';
 import { AddBooktoUser } from './addBooktoUser.jsx';
+import './CSS/ShowCat.css'
 
 export function ShowCat()
 {
@@ -39,36 +40,38 @@ export function ShowCat()
 
     return(
         <>
-            <h2>Book Catalog</h2>
-            <NavigationPage/>
-            <br/>
+            <main class="showBooksMain">
+                <h2 id="bookCath2">Book Catalog</h2>
+                <NavigationPage/>
+                <br/>
 
-            {isAdmin && (
-                <button onClick={() => navigate('/addBook')} type="button">Add Book</button>
-            )}
+                {isAdmin && (
+                    <button id="addBookButton" onClick={() => navigate('/addBook')} type="button">Add Book</button>
+                )}
 
-            {data && data.length > 0 ? 
-            <>
-                {data.map( (item) => (
-                    <div key={item._id}>
-                        <span>
-                            <h3>{item.title}</h3>
-                            {isAdmin && (
-                                <button onClick={() => navigate(`/editBook/${item._id}`)} type="button">Edit Book</button>
-                            )}
-                            {!isAdmin && (
-                                <AddBooktoUser bookIDFromCat={item._id} userIDFromAcc={userID}/>
-                            )}
-                            <h4>{item.author} | {item.pubDate}</h4>
-                            <h5>{item.genre}</h5>
-                            <p>{item.description}</p>
-                            <img src={`http://localhost:8080/covers/${item.coverImgPath.replace('uploads\\', '').replace('uploads/', '')}`} alt={`Cover for ${item.title}`}/> 
-                        </span>
-                    </div>
-                ))}
-            </>
-            : <><p>No books in the catalog</p></>
-            }
+                {data && data.length > 0 ? 
+                <>
+                    {data.map( (item) => (
+                        <div class="bookDiv" key={item._id}>
+                            <img id="bookImg" src={`http://localhost:8080/covers/${item.coverImgPath.replace('uploads\\', '').replace('uploads/', '')}`} alt={`Cover for ${item.title}`}/> 
+                            <div class="bookText">
+                                <h3 id="bookTitle">{item.title}</h3>
+                                {isAdmin && (
+                                    <button id="editBookButton" onClick={() => navigate(`/editBook/${item._id}`)} type="button">Edit Book</button>
+                                )}
+                                {!isAdmin && (
+                                    <AddBooktoUser id="addToUserCat" bookIDFromCat={item._id} userIDFromAcc={userID}/>
+                                )}
+                                <h4 id="bookAuthorDate">{item.author} | {item.pubDate}</h4>
+                                <h5 id="bookGenre">{item.genre}</h5>
+                                <p id="bookDescription">{item.description}</p>
+                            </div>
+                        </div>
+                    ))}
+                </>
+                : <><p id="noBooksp">No books in the catalog</p></>
+                }
+            </main>
         </>
     );
 }
