@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { NavigationPage } from './NavigationPage';
+import './CSS/UserBooks.css'
 
 export function UserBooks()
 {
@@ -40,26 +41,28 @@ export function UserBooks()
 
     return(
         <>
-            <NavigationPage/>
-            <h2>Books You've Read</h2>
-            <br/>
+            <main class="userBooksCatMain">
+                <h2 id="userBooksh2">Books You've Read</h2>
+                <NavigationPage/>
+                <br/>
 
-            {Array.isArray(data) && data.length > 0 ? 
-            <>
-                {data.map( (item) => (
-                    <div key={item._id}>
-                        <span>
-                            <h3>{item.title}</h3>
-                            <h4>{item.author} | {item.pubDate}</h4>
-                            <h5>{item.genre}</h5>
-                            <p>Rating: {item.rating}</p>
-                            <img src={`http://localhost:8080/covers/${item.coverImgPath.replace('uploads\\', '').replace('uploads/', '')}`} alt={`Cover for ${item.title}`}/> 
-                        </span>
-                    </div>
-                ))}
-            </>
-            : <><p>You have not marked any books yet!</p></>
-            }
+                {Array.isArray(data) && data.length > 0 ? 
+                <>
+                    {data.map( (item) => (
+                        <section class="userBooks" key={item._id}>
+                            <img id="bookImg" src={`http://localhost:8080/covers/${item.coverImgPath.replace('uploads\\', '').replace('uploads/', '')}`} alt={`Cover for ${item.title}`}/> 
+                            <div class="bookInfo">
+                                <h3 id="bookTitle">{item.title}</h3>
+                                <h4 id="bookAuthorDate">{item.author} | {item.pubDate}</h4>
+                                <h5 id="bookGenre">{item.genre}</h5>
+                                <p id="bookRating">Rating: {item.rating}</p>
+                            </div>                            
+                        </section>
+                    ))}
+                </>
+                : <><p id="noBooksMarked">You have not marked any books yet!</p></>
+                }
+            </main>
         </>
     );
 }

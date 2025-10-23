@@ -55,12 +55,12 @@ export function ShowCat()
                         <div class="bookDiv" key={item._id}>
                             <img id="bookImg" src={`http://localhost:8080/covers/${item.coverImgPath.replace('uploads\\', '').replace('uploads/', '')}`} alt={`Cover for ${item.title}`}/> 
                             <div class="bookText">
+                                {!isAdmin && (
+                                    <AddBooktoUser id="addToUserCat" bookIDFromCat={item._id} userIDFromAcc={userID}/>
+                                )}
                                 <h3 id="bookTitle">{item.title}</h3>
                                 {isAdmin && (
                                     <button id="editBookButton" onClick={() => navigate(`/editBook/${item._id}`)} type="button">Edit Book</button>
-                                )}
-                                {!isAdmin && (
-                                    <AddBooktoUser id="addToUserCat" bookIDFromCat={item._id} userIDFromAcc={userID}/>
                                 )}
                                 <h4 id="bookAuthorDate">{item.author} | {item.pubDate}</h4>
                                 <h5 id="bookGenre">{item.genre}</h5>

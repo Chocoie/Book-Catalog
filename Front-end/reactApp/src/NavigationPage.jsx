@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
+import './CSS/Navigation.css'
 
 export function NavigationPage()
 {
@@ -37,11 +38,13 @@ export function NavigationPage()
 
     return (
         <>
-            <button onClick={logout} type="button">Log Out</button>
-            <button onClick={() => navigate('/catalog')} type="button">Catalog</button>
-            {isStand && (
-                <button onClick={() => navigate('/userBooks')} type="button">User Books</button>
-            )}
+            <section class="navigationBar">
+                <button id="catNavButton" onClick={() => navigate('/catalog')} type="button">Catalog</button>
+                {isStand && (
+                    <button id="userBooksNavButton" onClick={() => navigate('/userBooks')} type="button">User Books</button>
+                )}
+                <button id="logoutNavButton" onClick={logout} type="button">Log Out</button>
+            </section>
         </>
     )
 }
