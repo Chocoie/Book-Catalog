@@ -44,11 +44,6 @@ export function ShowCat()
                 <h2 id="bookCath2">Book Catalog</h2>
                 <NavigationPage/>
                 <br/>
-
-                {isAdmin && (
-                    <button id="addBookButton" onClick={() => navigate('/addBook')} type="button">Add Book</button>
-                )}
-
                 {data && data.length > 0 ? 
                 <>
                     {data.map( (item) => (
@@ -58,10 +53,10 @@ export function ShowCat()
                                 {!isAdmin && (
                                     <AddBooktoUser id="addToUserCat" bookIDFromCat={item._id} userIDFromAcc={userID}/>
                                 )}
-                                <h3 id="bookTitle">{item.title}</h3>
                                 {isAdmin && (
-                                    <button id="editBookButton" onClick={() => navigate(`/editBook/${item._id}`)} type="button">Edit Book</button>
+                                        <img id="editIcon" src="editing.png" alt="edit icon" onClick={() => navigate(`/editBook/${item._id}`)}/>
                                 )}
+                                <h3 id="bookTitle">{item.title}</h3>
                                 <h4 id="bookAuthorDate">{item.author} | {item.pubDate}</h4>
                                 <h5 id="bookGenre">{item.genre}</h5>
                                 <p id="bookDescription">{item.description}</p>

@@ -8,6 +8,7 @@ export function AddBooktoUser ({bookIDFromCat, userIDFromAcc})
     const[initialIsRead, setInitialIsRead] = useState(false);
     const[rating, setRating] = useState("");
     const[message, setMessage] = useState("");
+    const[isOpen, setIsOpen] = useState(false);
 
     useEffect(()=> {
         if(!bookIDFromCat || !userIDFromAcc) return;
@@ -32,17 +33,34 @@ export function AddBooktoUser ({bookIDFromCat, userIDFromAcc})
         setIsRead(isChecked);
 
         if(!isChecked)
+        {
             setRating("");
+            setIsOpen(false);
+        }
     };
 
+    const dropdown = () => {
+        setIsOpen(prev => !prev);
+    }
+
     const handleRatingChange = (e) => {
-        setRating(e.target.value);
-    };
+        const newRating = e.currentTarget.getAttribute('data-value');
+        e.stopPropagation();
+
+        setRating(newRating);
+        setIsOpen(false);
+    };   
 
     //add a book to user's catalog
     async function addBookForUser(event)
     {
         event.preventDefault();
+
+        if (isRead && rating === "")
+        {
+            setMessage("Please select a rating.");
+            return;
+        }
 
         let doc = {
             uID: userIDFromAcc,
@@ -68,30 +86,38 @@ export function AddBooktoUser ({bookIDFromCat, userIDFromAcc})
         } catch(e) {
             console.error(e);
         }
-    }
+    }    
 
     return(
         <>
             <form class="addBookToUser" onSubmit={addBookForUser}>
                 {!initialIsRead ? (
                     <>
-                        <input type="checkbox" id={`readMark-${bookIDFromCat}`} checked={isRead} onChange={handleReadChange}/>
-                        <label htmlFor={`readMark-${bookIDFromCat}`}>Read</label>
-                        <br/>
+                        <label class="readContainer" htmlFor={`readMark-${bookIDFromCat}`}> Read
+                            <input type="checkbox" id={`readMark-${bookIDFromCat}`} checked={isRead} onChange={handleReadChange}/>
+                            <span id={`checkBox-${bookIDFromCat}`}></span>
+                        </label>
                         {isRead && (
                             <>
-                                <label htmlFor={`rating-${bookIDFromCat}`}>Rating</label>
-                                <select id={`rating-${bookIDFromCat}`} value={rating} onChange={handleRatingChange} required>
-                                    <option value="" disabled>Rate</option>
-                                    <option value="1">1 Star</option>
-                                    <option value="2">2 Stars</option>
-                                    <option value="3">3 Stars</option>
-                                    <option value="4">4 Stars</option>
-                                    <option value="5">5 Stars</option>
-                                </select>
-
-                                <button type="submit">Save</button>
-                                {message && <p>{message}</p>}
+                                <div 
+                                    id={`rating-${bookIDFromCat}`} 
+                                    className={`dropdownContainer ${isOpen ? 'open' : ''}`} 
+                                    onClick={dropdown}
+                                >
+                                    <span class="dropdownValue">
+                                        {rating ? `${rating} Star${rating > 1 ? 's' : ''}` : 'Rate ▼'}
+                                    </span>
+                                    <ul class="dropdownOptionsList">
+                                        <li class="dropdownOption" data-value="1" onClick={handleRatingChange}>1 Star</li>
+                                        <li class="dropdownOption" data-value="2" onClick={handleRatingChange}>2 Stars</li>
+                                        <li class="dropdownOption" data-value="3" onClick={handleRatingChange}>3 Stars</li>
+                                        <li class="dropdownOption" data-value="4" onClick={handleRatingChange}>4 Stars</li>
+                                        <li class="dropdownOption" data-value="5" onClick={handleRatingChange}>5 Stars</li>
+                                    </ul>
+                                </div>
+                                <br/>
+                                <button id="submitRating" type="submit">Save</button>
+                                {message && <p id="readMessage">{message}</p>}
                             </>
                         )}
                     </>) : (<><p>Already Read</p></>)

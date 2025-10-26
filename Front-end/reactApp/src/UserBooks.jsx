@@ -50,12 +50,12 @@ export function UserBooks()
                 <>
                     {data.map( (item) => (
                         <section class="userBooks" key={item._id}>
-                            <img id="bookImg" src={`http://localhost:8080/covers/${item.coverImgPath.replace('uploads\\', '').replace('uploads/', '')}`} alt={`Cover for ${item.title}`}/> 
+                            <img id="bookImgUser" src={`http://localhost:8080/covers/${item.coverImgPath.replace('uploads\\', '').replace('uploads/', '')}`} alt={`Cover for ${item.title}`}/> 
                             <div class="bookInfo">
-                                <h3 id="bookTitle">{item.title}</h3>
-                                <h4 id="bookAuthorDate">{item.author} | {item.pubDate}</h4>
-                                <h5 id="bookGenre">{item.genre}</h5>
-                                <p id="bookRating">Rating: {item.rating}</p>
+                                <h3 id="bookTitleUser">{item.title}</h3>
+                                <h4 id="bookAuthorDateUser">{item.author} | {item.pubDate}</h4>
+                                <h5 id="bookGenreUser">{item.genre}</h5>
+                                <p id="bookRatingUser">Rating: {item.rating}</p>
                             </div>                            
                         </section>
                     ))}

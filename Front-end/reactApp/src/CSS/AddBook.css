@@ -1,0 +1,97 @@
+.addNewBookMain {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    float: left;
+    background-color: white;
+    padding: 3%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.addNewBookForm {
+    display: flex;
+    flex-direction: column;
+}
+
+#addNewBookh2 {
+    font-size: 200%;
+    margin-bottom: 8%;
+}
+
+#addNewBookMessage {
+    color: red;
+    font-weight: bold;
+    font-size: 1.25rem;
+}
+
+#addBookTitle, #addBookAuthor, #addBookGenre, #addBookPubDate {
+    height: 2.5rem;
+    width: 15rem;
+    border-radius: 0.5rem;
+    border: 2.5px solid #454545;
+    font-size: 15px;
+    background-color: #f7f6f6;
+}
+
+#addBookImg {
+    font-size: 15px;
+}
+
+#addBookDescription {
+    height: 7rem;
+    width: 25rem;
+    border-radius: 0.5rem;
+    border: 2.5px solid #454545;
+    font-size: 15px;
+    background-color: #f7f6f6;
+}
+
+#addNewBookButton {
+    display: flex;
+    align-items: center;
+    appearance: none;
+    outline:color(#454545);
+    background: none;
+    cursor: pointer;
+    justify-content: center;
+
+    font-size: 1.1rem;
+    font-weight: 500;
+
+    padding: 1rem 1.5rem;
+    border-radius: 0.5rem;
+    height: 2rem;
+    width: 9rem;
+    border: 2px solid #454545;
+
+    background-color: #785964;
+    background-image: linear-gradient(to right, #f7f6f6 50%, #93B7BE 50%);
+    color: black;
+    background-size: 200%;
+    transition: 0.6s ease-out;
+}
+
+#addNewBookButton:hover {
+    background-position: right;
+}
+
+#backToCat {
+    display: flex;
+    appearance: none;
+    background: none;
+    cursor: pointer;
+    border: none;
+
+    font-size: 1rem;
+    font-weight: 500; 
+
+    height: 3rem;
+    width: 10rem;
+
+    color:#5a8993;
+}
+
+#backToCat:hover {
+    color:black;
+}

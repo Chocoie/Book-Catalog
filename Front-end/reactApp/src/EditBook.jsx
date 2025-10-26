@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
+import './CSS/EditBook.css'
 
 export function EditBook()
 {
     const{bookID} = useParams();
-
     const[title, setTitle] = useState("");
     const[author, setAuthor] = useState("");
     const[genre, setGenre] = useState("");
@@ -90,7 +90,15 @@ export function EditBook()
             }
         )
         if(response.ok)
+        {
+            setTitle("");
+            setAuthor("");
+            setGenre("");
+            setCoverImg(null);
+            setPubDate("");
+            setDescription("");
             setMessage("Book successfully deleted!");
+        }
         else
             setMessage("Something went wrong with deletion!");
     }
@@ -127,48 +135,45 @@ export function EditBook()
 
     return(
         <>
-            <div>
-                <h2>Update a book to the Catalog</h2>
-                <form onSubmit={updateBook}>
-                    <input onChange={handleTitleChange} type="text" id="title" placeholder="Book Title" value={title} required/>
+            <main class="editBookMain">
+                <h2 id="updateBookh2">Update a book to the Catalog</h2>
+                <form class="editBookForm" onSubmit={updateBook}>
+                    <input onChange={handleTitleChange} type="text" id="editBookTitle" placeholder="Book Title" value={title} required/>
                     <br/>
+                    <input onChange={handleAuthorChange} type="text" id="editBookAuthor" placeholder="Book Author" value={author} required/>
                     <br/>
-                    <input onChange={handleAuthorChange} type="text" id="author" placeholder="Book Author" value={author} required/>
-                    <br/>
-                    <br/>
-                    <input onChange={handleGenreChange} type="text" id="genre" placeholder="Book Genre" value={genre} required/>
-                    <br/>
+                    <input onChange={handleGenreChange} type="text" id="editBookGenre" placeholder="Book Genre" value={genre} required/>
                     <br/>
                     {currBook && currBook.coverImgPath && (
                         <>
-                            <p>Current Cover:</p>
+                            <p id="currCover">Current Cover:</p>
                             <img 
+                                id="editBookCurrImg"
                                 src={`http://localhost:8080/covers/${currBook.coverImgPath.replace('uploads\\', '').replace('uploads/', '')}`}
                                 alt="Current Book Cover"
                             />
                         </>
                     )}
                     <br/>
+                    <label id="selectNewCovImg">Select new file to change cover:</label>
                     <br/>
-                    <label>Select new file to change cover:</label>
-                    <input onChange={handleCoverChange} type="file" id="bookImg" accept="image/png, image/jpeg, image/webp" placeholder="Book Cover"/>
+                    <input onChange={handleCoverChange} type="file" id="editBookImg" accept="image/png, image/jpeg, image/webp" placeholder="Book Cover"/>
                     <br/>
+                    <input onChange={handleDateChange} type="text" id="editBookPubDate" pattern="\d{4}" placeholder="Publishing Date Year" maxLength={4} value={date} required/>
                     <br/>
-                    <input onChange={handleDateChange} type="text" id="pubDate" pattern="\d{4}" placeholder="Publishing Date Year" maxLength={4} value={date} required/>
+                    <textarea onChange={handleDescriptionChange} type="text" id="editBookDescription" placeholder="Book Description" value={description} required/>
                     <br/>
-                    <br/>
-                    <input onChange={handleDescriptionChange} type="text" id="description" placeholder="Book Description" value={description} required/>
-                    <br/>
-                    <br/>
-                    <button type="submit">Update Book</button>
-                    <button onClick={deleteBook} type="button">Delete Book</button>
+                    <div class="updateAndDelete"> 
+                        <button id="updateBookButton" type="submit">Update Book</button>
+                        <button id="deleteBookButton" onClick={deleteBook} type="button">Delete Book</button>
+                    </div>
                     {message && (
-                        <p>{message}</p>
+                        <p id="editBookMessage">{message}</p>
                     )}
                     <br/>
-                    <button onClick={()=> navigate('/catalog')}  type="button">Back to Catalog</button>
+                    <button id="editBackToCat" onClick={()=> navigate('/catalog')}  type="button">Back to Catalog</button>
                 </form>
-            </div>
+            </main>
         </>
     )
 }

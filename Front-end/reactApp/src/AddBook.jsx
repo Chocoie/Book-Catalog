@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './CSS/AddBook.css'
 
 export function AddBook()
 {
@@ -38,6 +39,7 @@ export function AddBook()
             {
                 setTitle("");
                 setAuthor("");
+                setGenre("");
                 setPubDate(""); 
                 setDescription("");
                 setCoverImg(null);
@@ -89,36 +91,35 @@ export function AddBook()
 
     return(
         <>
-            <div>
-                <h2>Add a book to the Catalog</h2>
-                <form onSubmit={handleSubmit} key={formKey}>
-                    <input onChange={handleTitleChange} type="text" id="title" placeholder="Book Title" value={title} required/>
+            <main class="addNewBookMain">
+                <h2 id="addNewBookh2">Add a book to the Catalog</h2>
+                <form class="addNewBookForm" onSubmit={handleSubmit} key={formKey}>
+                    <input onChange={handleTitleChange} type="text" id="addBookTitle" placeholder="Book Title" value={title} required/>
                     <br/>
                     <br/>
-                    <input onChange={handleAuthorChange} type="text" id="author" placeholder="Book Author" value={author} required/>
+                    <input onChange={handleAuthorChange} type="text" id="addBookAuthor" placeholder="Book Author" value={author} required/>
                     <br/>
                     <br/>
-                    <input onChange={handleGenreChange} type="text" id="genre" placeholder="Book Genre" value={genre} required/>
+                    <input onChange={handleGenreChange} type="text" id="addBookGenre" placeholder="Book Genre" value={genre} required/>
                     <br/>
                     <br/>
-                    <input onChange={handleCoverChange} type="file" id="bookImg" accept="image/png, image/jpeg, image/webp" placeholder="Book Cover" required/>
+                    <input onChange={handleCoverChange} type="file" id="addBookImg" accept="image/png, image/jpeg, image/webp" placeholder="Book Cover" required/>
                     <br/>
                     <br/>
-                    <input onChange={handleDateChange} type="text" id="pubDate" pattern="\d{4}" placeholder="Publishing Date Year" maxLength={4} value={date} required/>
+                    <input onChange={handleDateChange} type="text" id="addBookPubDate" pattern="\d{4}" placeholder="Publishing Date Year" maxLength={4} value={date} required/>
                     <br/>
                     <br/>
-                    <input onChange={handleDescriptionChange} type="text" id="description" placeholder="Book Description" value ={description} required/>
+                    <textarea onChange={handleDescriptionChange} rows="5" cols="40" id="addBookDescription" placeholder="Book Description" value={description} required/>
                     <br/>
                     <br/>
-                    <button type="submit">Add Book</button>
+                    <button id="addNewBookButton" type="submit">Add Book</button>
                     <br/>
                     {message && (
-                        <p>{message}</p>
+                        <p id="addNewBookMessage">{message}</p>
                     )}
-                    <br/>
-                    <button onClick={()=> navigate('/catalog')}  type="click">Back to Catalog</button>
+                    <button id="backToCat" onClick={()=> navigate('/catalog')}  type="click">Back to Catalog</button>
                 </form>
-            </div>
+            </main>
         </>
     )
 }

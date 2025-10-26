@@ -3,7 +3,7 @@ import { Welcome } from './Welcome.jsx';
 import { LoginPage } from './LoginPage.jsx';
 import { NewUserPage } from './NewUserPage.jsx';
 import { ShowCat } from './showCat.jsx';
-import { AddBook } from './addBook.jsx';
+import { AddBook } from './AddBook.jsx';
 import { EditBook } from './EditBook.jsx';
 import { UserBooks } from './UserBooks.jsx';
 import './CSS/App.css'

@@ -27,6 +27,12 @@
     box-shadow: 0 4px 8px 0 #696969;
 }
 
+#editIcon {
+    float: right;
+    height: 30px;
+    width: 30px;
+}
+
 #bookTitle {
     font-weight: bold;
     font-size: 20px;

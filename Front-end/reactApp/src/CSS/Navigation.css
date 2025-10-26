@@ -7,7 +7,7 @@
     background-color: #785964;
 }
 
-#logoutNavButton, #catNavButton, #userBooksNavButton {
+#logoutNavButton, #catNavButton, #userBooksNavButton, #addBookNavButton {
     appearance: none;
     border: none;
     background: none;
@@ -28,6 +28,11 @@
 }
 
 #userBooksNavButton:hover {
+    background-color: #F1FFFA;
+    color: black;
+}
+
+#addBookNavButton:hover {
     background-color: #F1FFFA;
     color: black;
 }
