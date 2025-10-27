@@ -38,9 +38,13 @@ export function NewUserPage()
 
         //check if response was successful
         if(response.ok){
-            return true;
+            const userData = await response.json();
+            return {
+                _id: userData._id,
+                uType: doc.uType
+            };
         } else {
-            return false;
+            return null;
         }
     }
 
@@ -76,14 +80,18 @@ export function NewUserPage()
             return;
         }
 
-        const success = await addNewUser();
-        if(success) {
+        const userData = await addNewUser();
+        if(userData) {
+            localStorage.setItem('userType', userData.uType);
+            console.log("usertype: ", userData.uType);
+            localStorage.setItem('_id', userData._id);
+            console.log("userid: ", userData._id);
+
             console.log("routing...")
             navigate('/catalog');
         } else {
-            setError("Account creation error")
+            setError("Account creation error");
         }
-
     }
 
     function handleFirstNameChange(data)

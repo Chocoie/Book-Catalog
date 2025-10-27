@@ -15,9 +15,8 @@ export function ShowCat()
 
     useEffect(() => {
         const role = localStorage.getItem('userType');
-        if(role){
+        if(role)
             setUserRole(role);
-        }
 
         const id = localStorage.getItem('_id');
         if(id)

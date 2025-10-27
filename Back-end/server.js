@@ -46,10 +46,10 @@ async function connectDB(){
 connectDB();
 
 //add data to user collection
-app.post("/users", (req, res) => {
+app.post("/users", async (req, res) => {
     try{
         let collection = db.collection("Users");
-        let result = collection.insertOne(req.body);
+        let result = await collection.insertOne(req.body);
         res.send(result);
     }
     catch(e){
@@ -161,13 +161,7 @@ app.get("/users/checkuser", async (req, res) => {
 //show books in db
 app.get("/books", async (req, res) => {
     try{
-        let body = req.body;
         let filter = {};
-        if(body)
-        {
-            filter = {"_id": ObjectId(body._id)};
-            console.log(body);
-        }
         let collection = db.collection("Books");
         let result = await collection.find(filter).toArray();
         res.json(result);
