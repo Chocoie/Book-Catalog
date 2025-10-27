@@ -25,6 +25,12 @@ export function LoginPage()
         e.preventDefault()
         setErrorMessage("");
 
+        if(!username || !password)
+        {
+            setErrorMessage("All fields are required!");
+            return;
+        }
+
         //allows user to login if conditions are met
         axios.post('http://localhost:8080/login', {uName: username, pass: password})
         .then(result => {

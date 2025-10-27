@@ -97,6 +97,7 @@ export function EditBook()
             setCoverImg(null);
             setPubDate("");
             setDescription("");
+            setCurrBook("null");
             setMessage("Book successfully deleted!");
         }
         else
@@ -136,7 +137,7 @@ export function EditBook()
     return(
         <>
             <main class="editBookMain">
-                <h2 id="updateBookh2">Update a book to the Catalog</h2>
+                <h2 id="updateBookh2">Edit a book to the Catalog</h2>
                 <form class="editBookForm" onSubmit={updateBook}>
                     <input onChange={handleTitleChange} type="text" id="editBookTitle" placeholder="Book Title" value={title} required/>
                     <br/>

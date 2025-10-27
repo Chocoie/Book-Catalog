@@ -66,6 +66,13 @@ export function NewUserPage()
         event.preventDefault();
         setError("");
 
+        //check if any fields are empty
+        if(!firstname || !lastname || !username || !password || !password2 || !usertype)
+        {
+            setError("All fields are required!");
+            return;
+        }
+
         //check if username already exists
         const isTaken = await checkUName();
         if(isTaken)
@@ -80,12 +87,11 @@ export function NewUserPage()
             return;
         }
 
+        //stores userType and user id in local storage
         const userData = await addNewUser();
-        if(userData) {
+        if(typeof userData === 'object' && userData !== null) {
             localStorage.setItem('userType', userData.uType);
-            console.log("usertype: ", userData.uType);
             localStorage.setItem('_id', userData._id);
-            console.log("userid: ", userData._id);
 
             console.log("routing...")
             navigate('/catalog');

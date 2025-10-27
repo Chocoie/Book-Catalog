@@ -47,6 +47,13 @@ connectDB();
 
 //add data to user collection
 app.post("/users", async (req, res) => {
+    const {fName, lName, uName, pass, uType} = req.body;
+
+    if(!fName || !lName || !uName || !pass || !uType)
+    {
+        res.send("All user feilds are required!");
+    }
+
     try{
         let collection = db.collection("Users");
         let result = await collection.insertOne(req.body);
